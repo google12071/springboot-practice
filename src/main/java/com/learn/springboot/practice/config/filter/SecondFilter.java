@@ -23,16 +23,16 @@ public class SecondFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        log.info("过滤器开始对请求进行预处理2：");
+        log.info("过滤器2对请求进行预处理：");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String requestUri = request.getRequestURI();
-        System.out.println("请求的接口为url：" + requestUri);
+        System.out.println("过滤器2请求的接口为url：" + requestUri);
         long startTime = System.currentTimeMillis();
         //通过 doFilter 方法实现过滤功能
         filterChain.doFilter(servletRequest, servletResponse);
         // 上面的 doFilter 方法执行结束后用户的请求已经返回
         long endTime = System.currentTimeMillis();
-        System.out.println("请求已经处理完毕，请求花费的时间为：" + (endTime - startTime));
+        System.out.println("过滤器2请求处理完毕，消耗时间为：" + (endTime - startTime));
     }
 
     @Override
