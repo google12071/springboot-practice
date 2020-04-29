@@ -1,4 +1,4 @@
-package com.learn.springboot.practice.config;
+package com.learn.springboot.practice.config.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

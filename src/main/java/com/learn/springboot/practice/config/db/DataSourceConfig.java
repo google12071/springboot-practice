@@ -1,4 +1,4 @@
-package com.learn.springboot.practice.config;
+package com.learn.springboot.practice.config.db;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

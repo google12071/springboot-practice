@@ -1,4 +1,4 @@
-package com.learn.springboot.practice.config;
+package com.learn.springboot.practice.config.redis;
 
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
