@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.springboot.practice.dao.learn.UserMapper">
+
+    <select id="getAllUser" resultType="User">
+      SELECT  * FROM `user`
+    </select>
+
+    <select id="getUserById" resultType="User">
+      SELECT  * FROM `user` where `uid`=#{uid}
+    </select>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE `user`
+        SET updateTime=sysdate()
+        <if test="name!=null">
+            ,`name`=#{name}
+        </if>
+        <if test="address!=null">
+            ,address=#{address}
+        </if>
+       WHERE uid=#{uid}
+    </update>
+
+    <insert id="saveUser" parameterType="User" useGeneratedKeys="true" keyProperty="uid">
+         INSERT INTO `user`(
+            <if test="name!=null">
+                `name`,
+            </if>
+            <if test="age!=null">
+                age,
+            </if>
+            <if test="address!=null">
+                address,
+            </if>
+            <if test="des!=null">
+                des,
+            </if>
+            <if test="money!=null">
+                money,
+            </if>createTime,updateTime)
+            VALUES(
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="age!=null">
+                #{age},
+            </if>
+            <if test="address!=null">
+                #{address},
+            </if>
+            <if test="des!=null">
+                #{des},
+            </if>
+            <if test="money!=null">
+                #{money},
+            </if>SYSDATE(),SYSDATE())
+    </insert>
+
+    <delete id="deleteUser">
+        DELETE  FROM `user` WHERE uid=#{uid}
+    </delete>
+</mapper>
+
