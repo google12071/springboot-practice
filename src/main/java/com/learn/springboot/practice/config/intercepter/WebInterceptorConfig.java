@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @ClassName WebIntercepterConfig
+ * @ClassName WebInterceptorConfig
  * @Description:Web拦截器配置
  * @Author lfq
  * @Date 2020/4/29
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebInterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(userInterceptor()).addPathPatterns("/*");
+        registry.addInterceptor(userInterceptor());
     }
 
     @Bean
