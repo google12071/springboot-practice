@@ -29,4 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
-*.cmdª
+*.cmd
+.mvn/
+.DS_Store
