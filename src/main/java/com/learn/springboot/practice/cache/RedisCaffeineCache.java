@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class RedisCaffeineCache extends AbstractValueAdaptingCache {
 
-    private String name;
+    private String name;//
 
     private Cache<Object, Object> caffeineCache;
 
