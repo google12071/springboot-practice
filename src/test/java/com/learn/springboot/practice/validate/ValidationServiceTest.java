@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.Set;
+
 /**
  * @ClassName ValidateService
  * @Description:
@@ -26,10 +30,16 @@ public class ValidationServiceTest {
 
     @Test
     public void checkUser() {
-        try {
-            validationService.validatePerson(new Person());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        validationService.validatePerson(builderPerson());
+    }
+
+    public Person builderPerson() {
+        Person person = new Person();
+        person.setPersonId(1L);
+        person.setAge(120);
+        person.setEmail("fqqq.com");
+        person.setName("fq");
+        person.setSex("男");
+        return person;
     }
 }

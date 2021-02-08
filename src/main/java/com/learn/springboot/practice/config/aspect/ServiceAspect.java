@@ -8,7 +8,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.util.Set;
 
 /**
  * @ClassName ServiceAspect
@@ -20,7 +22,7 @@ import javax.validation.ConstraintViolationException;
 @Component
 @Aspect
 public class ServiceAspect {
-    @Pointcut("@annotation(com.learn.springboot.practice.annotation.AopConfig)")
+    @Pointcut("@annotation(com.learn.springboot.practice.annotation.ParamValidate)")
     public void pointCut() {
     }
 
@@ -28,7 +30,15 @@ public class ServiceAspect {
     public void afterThrow(JoinPoint joinPoint, Throwable throwable) {
         if (throwable instanceof ConstraintViolationException) {
             ConstraintViolationException e = (ConstraintViolationException) throwable;
-            throw new BizException(e.getMessage(), throwable.getMessage());
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<?> v : violations) {
+                sb.append(v.getMessageTemplate()).append(",");
+            }
+            if (sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            throw new BizException("param_error", sb.toString());
         }
     }
 }

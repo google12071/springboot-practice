@@ -17,21 +17,21 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class Person {
 
-    @NotNull(message = "personId不能为空")
+    @NotNull(message = "员工ID不能为空")
     private Long personId;
 
-    @NotBlank(message = "name 不能为空")
+    @NotBlank(message = "姓名不能为空")
     private String name;
 
-    @Pattern(regexp = "((^Man$|^Woman$|^UGM$))", message = "sex 值不在可选范围")
-    @NotBlank(message = "sex 不能为空")
+    @Pattern(regexp = "((^Man$|^Woman$|^UGM$))", message = "性别必须为男/女")
+    @NotBlank(message = "性别不能为空")
     private String sex;
 
-    @Email(message = "email 格式不正确")
-    @NotBlank(message = "email 不能为空")
+    @Email(message = "Email格式不正确")
+    @NotBlank(message = "Email不能为空")
     private String email;
 
     @Max(message = "年龄不得超过35周岁", value = 35)
-    @NotNull
+    @NotNull(message = "年龄不能为空")
     private Integer age;
 }
