@@ -32,3 +32,4 @@ build/
 *.cmd
 .mvn/
 .DS_Store
+.ieaa/
