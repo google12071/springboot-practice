@@ -30,16 +30,17 @@ public class ValidationServiceTest {
 
     @Test
     public void checkUser() {
-        validationService.validatePerson(builderPerson());
+        System.out.println(validationService.validatePerson(builderPerson()));
     }
 
-    public Person builderPerson() {
+    private Person builderPerson() {
         Person person = new Person();
         person.setPersonId(1L);
-        person.setAge(120);
-        person.setEmail("fqqq.com");
+        person.setAge(27);
+        person.setEmail("fq@test.com");
         person.setName("fq");
         person.setSex("男");
+        person.setIdCardNumber("342224199411150211");
         return person;
     }
 }
