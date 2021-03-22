@@ -36,7 +36,7 @@ public class ValidationServiceTest {
     private Person builderPerson() {
         Person person = new Person();
         person.setPersonId(1L);
-        person.setAge(27);
+        person.setAge(127);
         person.setEmail("fq@test.com");
         person.setName("fq");
         person.setSex("男");

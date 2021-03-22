@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @Validated
 public class ValidationService {
 
-    @ParamValidate
+    //@ParamValidate
     public Person validatePerson(@Valid Person person) {
         return person;
     }

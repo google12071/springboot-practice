@@ -37,6 +37,6 @@ public class Person {
     private Integer age;
 
     @NotBlank(message = "身份证号不能为空")
-    @IdCardNumber(message = "身份证信息有误,请核对后提交")
+   // @IdCardNumber(message = "身份证信息有误,请核对后提交")
     private String idCardNumber;
 }
