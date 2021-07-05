@@ -1,6 +1,6 @@
 package com.learn.springboot.practice.service;
 
-import com.learn.springboot.practice.annotation.AopConfig;
+import com.learn.springboot.practice.annotation.ParamValidate;
 import com.learn.springboot.practice.pojo.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,8 @@ import javax.validation.Valid;
 @Validated
 public class ValidationService {
 
-    @AopConfig
-    public void validatePerson(@Valid Person person) {
+    //@ParamValidate
+    public Person validatePerson(@Valid Person person) {
+        return person;
     }
 }
