@@ -1,7 +1,9 @@
 package com.learn.springboot.practice.retry;
 
+import com.learn.springboot.practice.BaseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.classify.BinaryExceptionClassifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.TypeMismatchDataAccessException;
@@ -18,12 +20,15 @@ import java.util.Collections;
 
 /**
  * @ClassName RetryTest
- * @Description: Spring-Retry失败重试
+ * @Description: Spring-Retry失败重试(支持构建RetryTemplate自动配置和基于注解声明公)
  * @Author lfq
  * @Date 2021/7/5
  **/
 @Slf4j
-public class RetryTest {
+public class RetryTest extends BaseTest {
+
+    @Autowired
+    private ThirdPartyService partyService;
 
     /**
      * 无状态重试（1.3.x以上版本支持builder模式）
@@ -108,6 +113,20 @@ public class RetryTest {
         log.info("result2:{}", result2);
         RetryStatistics statistics = repository.findOne("method.key");
         System.out.println(statistics);
+    }
+
+
+    /**
+     * 注解+声明式重试
+     */
+    @Test
+    public void retryByStatement() {
+        String s = "retry1234";
+        String result = partyService.queryThirdMessage(s);
+        log.info("result:{}", result);
+
+        int value = partyService.queryValue("test123432");
+        log.info("value:{}", value);
     }
 
 
