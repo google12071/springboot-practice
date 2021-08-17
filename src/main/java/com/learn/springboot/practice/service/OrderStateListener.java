@@ -3,16 +3,16 @@ package com.learn.springboot.practice.service;
 import com.learn.springboot.practice.enums.OrderEventEnum;
 import com.learn.springboot.practice.enums.OrderStatusEnum;
 import com.learn.springboot.practice.pojo.Order;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.annotation.OnTransition;
 import org.springframework.statemachine.annotation.WithStateMachine;
-import org.springframework.stereotype.Component;
 
 /**
  * @author lfq
  */
-@Component("orderStateListener")
-@WithStateMachine(name = "orderStateMachine", id = "o_0001")
+@Configuration
+@WithStateMachine
 public class OrderStateListener {
 
     @OnTransition(source = "WAIT_PAYMENT", target = "WAIT_DELIVER")

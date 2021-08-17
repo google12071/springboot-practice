@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
             //尝试恢复状态机状态
             persister.restore(orderStateMachine, order);
             //添加延迟用于线程安全测试
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             result = orderStateMachine.sendEvent(message);
             //持久化状态机状态
             persister.persist(orderStateMachine, order);
