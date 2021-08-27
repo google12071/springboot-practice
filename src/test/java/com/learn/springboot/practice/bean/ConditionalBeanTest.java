@@ -2,8 +2,12 @@ package com.learn.springboot.practice.bean;
 
 import com.learn.springboot.practice.BaseTest;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.Arrays;
 
 /**
  * 条件装配
