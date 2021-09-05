@@ -3,13 +3,12 @@ package com.learn.springboot.practice.async;
 import com.learn.springboot.practice.BaseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.annotation.Resource;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
+import java.util.function.BiConsumer;
 
 /**
  * Spring异步执行任务
@@ -72,5 +71,30 @@ public class AsyncTaskTest extends BaseTest {
         latch.await();
         //任务全部执行完成后关闭线程池
         executor.shutdown();
+    }
+
+
+    @Autowired
+    private AsyncAnnotationExample example;
+
+    @Test
+    public void asyncMethod() {
+        example.asyncMethod();
+    }
+
+    @Test
+    public void futureResult() throws InterruptedException, ExecutionException {
+        CompletableFuture<String> future = example.futureResult();
+        log.info("future:{}", future.get());
+    }
+
+    /**
+     * Future模式callback
+     */
+    @Test
+    public void futureCallback() throws InterruptedException, ExecutionException {
+        CompletableFuture<String> future = example.futureResult();
+        future.whenCompleteAsync((s, throwable) -> log.info("s:{},error:{}", s, throwable));
+        log.info("future:{}", future.get());
     }
 }

@@ -1,19 +1,27 @@
 package com.learn.springboot.practice.async;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 自定义线程池执行器Bean
  */
+@Slf4j
 @Configuration
-public class CustomizeExecutor {
+@EnableAsync
+public class CustomizeExecutor implements AsyncConfigurer {
     @Bean("myExecutor")
-    public ThreadPoolTaskExecutor taskExecutor() {
+    public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         //配置核心线程
         taskExecutor.setCorePoolSize(5);
@@ -29,4 +37,10 @@ public class CustomizeExecutor {
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         return taskExecutor;
     }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return new AsyncExceptionHandler();
+    }
+
 }
