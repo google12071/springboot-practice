@@ -3,14 +3,18 @@ package com.learn.springboot.practice.async;
 import com.learn.springboot.practice.BaseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import javax.annotation.Resource;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Spring异步执行任务
  */
 @Slf4j
 public class AsyncTaskTest extends BaseTest {
+    private static final CountDownLatch latch = new CountDownLatch(8);
+
     /**
      * 异步任务抽象
      */
@@ -30,6 +34,7 @@ public class AsyncTaskTest extends BaseTest {
             try {
                 Thread.sleep(2000);
                 log.info("Thread:{},message:{}", Thread.currentThread().getName(), message);
+                latch.countDown();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -39,14 +44,15 @@ public class AsyncTaskTest extends BaseTest {
     /**
      * 注入执行器
      */
-    @Autowired
-    private CustomizeExecutor executor;
+    @Resource(name = "myExecutor")
+    private ThreadPoolTaskExecutor executor;
 
     @Test
-    public void printMessage() {
-        ThreadPoolTaskExecutor taskExecutor = executor.taskExecutor();
+    public void printMessage() throws InterruptedException {
         for (int i = 0; i < 8; i++) {
-            taskExecutor.execute(new AsyncTask("message:" + i));
+            executor.execute(new AsyncTask("message:" + i));
         }
+        latch.await();
+        executor.shutdown();
     }
 }
