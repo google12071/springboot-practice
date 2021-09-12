@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false"
+         monitoring="autodetect"
+         dynamicConfig="true">
+    <!-- 当内存中不够存储时，存储到指定数据在磁盘中的存储位置。 -->
+    <diskStore path=" /Users/lfq/Desktop/cache" />
+
+    <!-- 默认缓存,当借助CacheManager.add("demoCache")创建Cache时，EhCache便会采用<defalutCache/>指定的的管理策略 -->
+    <defaultCache
+            maxElementsInMemory="3000"
+            eternal="false"
+            copyOnRead="true"
+            copyOnWrite="true"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="3600"
+            overflowToDisk="true"
+            diskPersistent="true">
+    </defaultCache>
+
+    <!-- 自定义的缓存策略 -->
+    <cache name="ehCache"
+           maxElementsInMemory="1000"
+           eternal="false"
+           timeToIdleSeconds="5"
+           timeToLiveSeconds="5"
+           overflowToDisk="false"
+           memoryStoreEvictionPolicy="LRU"/>
+
+</ehcache>
