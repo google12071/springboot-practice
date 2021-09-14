@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @EnableAsync
 public class CustomizeExecutor implements AsyncConfigurer {
+    @Override
     @Bean("myExecutor")
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
