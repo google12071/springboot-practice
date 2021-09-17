@@ -2,6 +2,8 @@ package com.learn.springboot.practice.bean.mapstruct;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author lfq
  */
@@ -11,4 +13,5 @@ public class DoctorDTO {
     private String name;
     private String specialization;
     private String degree;
+    private List<PatientDTO> patientDTOList;
 }
