@@ -7,6 +7,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * @author lfq
  */
@@ -26,4 +28,9 @@ public interface PatientMapper {
             @Mapping(source = "dateOfBirth", target = "birthDay", dateFormat = "yyyy-MM-dd")
     })
     Patient toPatient(PatientDTO patientDTO);
+
+    /*******List映射*********/
+    List<Patient> toPatientList(List<PatientDTO> patientDTOList);
+
+    List<PatientDTO> toPatientDTOList(List<Patient> patientList);
 }
