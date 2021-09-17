@@ -13,4 +13,5 @@ public class Doctor {
     private String name;
     private String specialty;
     private List<Patient> patientList;
+    private SexEnum sexEnum;
 }

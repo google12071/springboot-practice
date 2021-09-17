@@ -12,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 /**
  * @author lfq
  */
-@Mapper(uses = {PatientMapper.class})
+@Mapper(uses = {PatientMapper.class, SexMapper.class})
 public interface DoctorMapper {
     DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
 
@@ -24,7 +24,8 @@ public interface DoctorMapper {
      */
     @Mappings({
             @Mapping(source = "specialty", target = "specialization"),
-            @Mapping(source = "doctor.patientList", target = "patientDTOList")
+            @Mapping(source = "doctor.patientList", target = "patientDTOList"),
+            @Mapping(source = "doctor.sexEnum", target = "genderEnum")
     })
     DoctorDTO toDto(Doctor doctor);
 

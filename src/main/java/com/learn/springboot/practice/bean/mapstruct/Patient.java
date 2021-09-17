@@ -9,4 +9,5 @@ import lombok.Data;
 public class Patient {
     private String id;
     private String patientName;
+    private String birthDay;
 }

@@ -15,13 +15,15 @@ public interface PatientMapper {
     PatientMapper INSTANCE = Mappers.getMapper(PatientMapper.class);
 
     @Mappings({
-            @Mapping(source = "patientName", target = "name")
+            @Mapping(source = "patientName", target = "name"),
+            @Mapping(source = "birthDay", target = "dateOfBirth", dateFormat = "yyyy-MM-dd")
     })
     PatientDTO toPatientDto(Patient patient);
 
 
     @Mappings({
-            @Mapping(source = "name", target = "patientName")
+            @Mapping(source = "name", target = "patientName"),
+            @Mapping(source = "dateOfBirth", target = "birthDay", dateFormat = "yyyy-MM-dd")
     })
     Patient toPatient(PatientDTO patientDTO);
 }

@@ -14,4 +14,5 @@ public class DoctorDTO {
     private String specialization;
     private String degree;
     private List<PatientDTO> patientDTOList;
+    private GenderEnum genderEnum;
 }

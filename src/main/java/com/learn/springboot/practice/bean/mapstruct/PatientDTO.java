@@ -2,6 +2,8 @@ package com.learn.springboot.practice.bean.mapstruct;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 /**
  * @author lfq
  */
@@ -9,4 +11,5 @@ import lombok.Data;
 public class PatientDTO {
     private int id;
     private String name;
+    private LocalDate dateOfBirth;
 }
