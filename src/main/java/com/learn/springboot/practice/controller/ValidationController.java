@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 参数校验
  * @ClassName ValidationController
  * @Description:
  * @Author lfq

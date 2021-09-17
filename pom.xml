@@ -138,6 +138,12 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>28.2-jre</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>error_prone_annotations</artifactId>
+					<groupId>com.google.errorprone</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!--失败重试-->
@@ -167,7 +173,23 @@
 			<version>2.5.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.4.0.Final</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-jdk8</artifactId>
+			<version>1.4.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.4.0.Final</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -199,6 +221,7 @@
 					</resources>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 
