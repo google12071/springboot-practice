@@ -223,6 +223,18 @@ public class CompletableFutureTest {
         });
         //因为futureB无返回值，所以get任务计算结果为空
         log.info("futureResult:{}", futureB.get());
+
+        //任务A计算结果，任务B可以继续处理
+        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+            int result = 100;
+            System.out.println("一阶段：" + result);
+            return result;
+        }).thenApply(number -> {
+            int result = number * 3;
+            System.out.println("二阶段：" + result);
+            return result;
+        });
+        System.out.println("最终结果：" + future.get());
     }
 
     /**
@@ -274,6 +286,29 @@ public class CompletableFutureTest {
 
         CompletableFuture<String> futureB = futureA.thenCompose(s -> CompletableFuture.supplyAsync(() -> s + " World"));
         log.info("result:{}", futureB.get());
+
+        //compose方法将生成一个新的CompletableFuture
+        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(new Supplier<Integer>() {
+            @Override
+            public Integer get() {
+                int number = new Random().nextInt(3);
+                System.out.println("第一阶段：" + number);
+                return number;
+            }
+        }).thenCompose(new Function<Integer, CompletionStage<Integer>>() {
+            @Override
+            public CompletionStage<Integer> apply(Integer param) {
+                return CompletableFuture.supplyAsync(new Supplier<Integer>() {
+                    @Override
+                    public Integer get() {
+                        int number = param * 2;
+                        System.out.println("第二阶段：" + number);
+                        return number;
+                    }
+                });
+            }
+        });
+        System.out.println("最终结果: " + future.get());
     }
 
     //实现任务的合并运算
@@ -345,5 +380,44 @@ public class CompletableFutureTest {
         //任意一个任务计算结束，则返回计算结果
         CompletableFuture<Object> result = CompletableFuture.anyOf(futureA, futureB);
         log.info("result:{}", result.get());
+    }
+
+    /**
+     * 异常处理
+     */
+    @Test
+    public void handleException() {
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ignored) {
+
+            }
+            int i = 12 / 0;
+            System.out.println("执行结束！");
+        });
+
+        future.whenComplete(new BiConsumer<Void, Throwable>() {
+            @Override
+            public void accept(Void t, Throwable action) {
+                try {
+                    System.out.println("执行完成！");
+                } catch (Throwable e) {
+                    log.error("invoke error", action);
+                }
+            }
+        });
+
+        future.exceptionally(new Function<Throwable, Void>() {
+            @Override
+            public Void apply(Throwable t) {
+                try {
+                    System.out.println("执行完成");
+                } catch (Throwable e) {
+                    log.error("invoke error",t);
+                }
+                return null;
+            }
+        }).join();
     }
 }
