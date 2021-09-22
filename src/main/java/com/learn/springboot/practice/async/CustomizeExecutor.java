@@ -39,6 +39,11 @@ public class CustomizeExecutor implements AsyncConfigurer {
         return taskExecutor;
     }
 
+    /**
+     * 异常处理器，用于捕捉异步任务执行异常
+     *
+     * @return
+     */
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return new AsyncExceptionHandler();
