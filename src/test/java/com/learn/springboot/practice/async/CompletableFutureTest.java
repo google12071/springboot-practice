@@ -371,7 +371,7 @@ public class CompletableFutureTest {
 
         CompletableFuture<String> futureB = CompletableFuture.supplyAsync(() -> {
             try {
-                TimeUnit.SECONDS.sleep(random.nextInt(6));
+                TimeUnit.SECONDS.sleep(random.nextInt(1));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
