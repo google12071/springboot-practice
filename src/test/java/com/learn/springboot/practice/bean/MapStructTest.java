@@ -1,7 +1,6 @@
 package com.learn.springboot.practice.bean;
 
 import com.learn.springboot.practice.bean.mapper.DoctorMapper;
-import com.learn.springboot.practice.bean.mapper.PaymentTypeMapper;
 import com.learn.springboot.practice.bean.mapper.SexMapper;
 import com.learn.springboot.practice.bean.mapstruct.*;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +8,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.learn.springboot.practice.bean.mapstruct.PaymentTypeEnum.CARD_MASTER;
 
 @Slf4j
 public class MapStructTest {
