@@ -5,12 +5,15 @@ import com.learn.springboot.practice.bean.mapstruct.BChildren;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author lfq
  */
-@Mapper(componentModel = "spring")
+@Mapper
 public interface ChildrenMapper {
+    ChildrenMapper INSTANCE = Mappers.getMapper(ChildrenMapper.class);
+
     @Mappings({
             @Mapping(source = "str", target = "address")
     })

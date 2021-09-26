@@ -22,6 +22,7 @@ public class MapStructTest {
         doctor.setSpecialty("tom");
         doctor.setSexEnum(SexEnum.WOMEN);
         DoctorDTO dto = mapper.toDto(doctor);
+        mapper.setName(dto, "fq");
         System.out.println(dto);
 
 

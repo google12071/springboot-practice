@@ -9,6 +9,8 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.Random;
+
 /**
  * @author lfq
  */
@@ -23,6 +25,7 @@ public interface DoctorMapper {
      * @return
      */
     @Mappings({
+            @Mapping(target = "id", expression = "java(genNextId())"),
             @Mapping(source = "specialty", target = "specialization"),
             @Mapping(source = "doctor.patientList", target = "patientDTOList"),
             @Mapping(source = "doctor.sexEnum", target = "genderEnum")
@@ -54,4 +57,12 @@ public interface DoctorMapper {
             @Mapping(source = "doctorDTO.patientDTOList", target = "patientList")
     })
     void updateModel(DoctorDTO doctorDTO, @MappingTarget Doctor doctor);
+
+    default Integer genNextId() {
+        return new Random(5).nextInt(10);
+    }
+
+    default void setName(DoctorDTO doctorDTO, String name) {
+        doctorDTO.setName(name);
+    }
 }
