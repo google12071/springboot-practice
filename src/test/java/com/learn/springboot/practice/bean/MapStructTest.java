@@ -1,16 +1,27 @@
 package com.learn.springboot.practice.bean;
 
+import com.learn.springboot.practice.BaseTest;
+import com.learn.springboot.practice.bean.mapper.CarMapper;
 import com.learn.springboot.practice.bean.mapper.DoctorMapper;
 import com.learn.springboot.practice.bean.mapper.SexMapper;
 import com.learn.springboot.practice.bean.mapstruct.*;
+import com.learn.springboot.practice.enums.CarTypeEnum;
+import com.learn.springboot.practice.pojo.Car;
+import com.learn.springboot.practice.pojo.CarDTO;
+import com.learn.springboot.practice.pojo.CarType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class MapStructTest {
+public class MapStructTest extends BaseTest {
+
+    @Autowired
+    private CarMapper carMapper;
 
     @Test
     public void primaryMapping() {
@@ -58,5 +69,20 @@ public class MapStructTest {
         GenderEnum genderEnum = sexMapper.toGender(SexEnum.WOMEN);
         System.out.println(sexEnum);
         System.out.println(genderEnum);
+    }
+
+    @Test
+    public void carMapper(){
+        Car car = new Car();
+        car.setMake("测试");
+        car.setNum(10);
+        car.setNumberOfSeats(4);
+        CarType type = new CarType();
+        type.setCarType(CarTypeEnum.SUV);
+        type.setPrice(new BigDecimal(100));
+        car.setType(type);
+
+        CarDTO carDTO = carMapper.car2CarDTO(car);
+        System.out.println(carDTO);
     }
 }
