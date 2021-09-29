@@ -6,6 +6,7 @@ import com.learn.springboot.practice.bean.mapper.DoctorMapper;
 import com.learn.springboot.practice.bean.mapper.SexMapper;
 import com.learn.springboot.practice.bean.mapstruct.*;
 import com.learn.springboot.practice.enums.CarTypeEnum;
+import com.learn.springboot.practice.pojo.Boss;
 import com.learn.springboot.practice.pojo.Car;
 import com.learn.springboot.practice.pojo.CarDTO;
 import com.learn.springboot.practice.pojo.CarType;
@@ -72,7 +73,7 @@ public class MapStructTest extends BaseTest {
     }
 
     @Test
-    public void carMapper(){
+    public void mapStructTest(){
         Car car = new Car();
         car.setMake("测试");
         car.setNum(10);
