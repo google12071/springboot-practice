@@ -8,6 +8,8 @@ import org.mapstruct.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface CarMapper {
@@ -20,8 +22,12 @@ public interface CarMapper {
 
     List<CarDTO> carList2CarDTOList(List<Car> carList);
 
+    Set<CarDTO> toCardDtoSet(Set<Car> carSet);
 
-    @InheritInverseConfiguration(name = "car2CarDTO")
+    Map<String, CarDTO> toCarMap(Map<String, Car> carMap);
+
+
+    @InheritInverseConfiguration
     @Mappings({
             @Mapping(source = "price", target = "num", qualifiedByName = "getNum"),
             @Mapping(source = "type", target = "type", qualifiedByName = "toCarType")
