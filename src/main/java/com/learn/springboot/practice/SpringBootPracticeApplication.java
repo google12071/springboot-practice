@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.retry.annotation.EnableRetry;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author lfq
@@ -13,6 +14,7 @@ import org.springframework.retry.annotation.EnableRetry;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableCaching
 @EnableRetry
+@EnableScheduling
 @Slf4j
 public class SpringBootPracticeApplication {
     public static void main(String[] args) {

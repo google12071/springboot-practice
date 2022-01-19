@@ -190,6 +190,12 @@
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.taobao.arthas</groupId>
+			<artifactId>arthas-spring-boot-starter</artifactId>
+			<version>3.5.5</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.mapstruct</groupId>
