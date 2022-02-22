@@ -33,3 +33,4 @@ build/
 .mvn/
 .DS_Store
 .ieaa/
+*.log
