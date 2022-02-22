@@ -196,6 +196,13 @@
 			<version>3.5.5</version>
 		</dependency>
 
+		<!--引入logstash-->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>6.1</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.mapstruct</groupId>
