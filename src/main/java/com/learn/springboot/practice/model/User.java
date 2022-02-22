@@ -22,4 +22,12 @@ public class User implements Serializable {
     private Double money;
     private Date createTime;
     private Date updateTime;
+
+    public User() {
+    }
+
+    public User(Long uid, String name) {
+        this.uid = uid;
+        this.name = name;
+    }
 }
