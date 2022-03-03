@@ -18,10 +18,16 @@ public class WebInterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userInterceptor());
+        registry.addInterceptor(metricInterceptor()).addPathPatterns("/metric/*");
     }
 
     @Bean
     public UserInterceptor userInterceptor() {
         return new UserInterceptor();
+    }
+
+    @Bean
+    public MetricInterceptor metricInterceptor() {
+        return new MetricInterceptor();
     }
 }
