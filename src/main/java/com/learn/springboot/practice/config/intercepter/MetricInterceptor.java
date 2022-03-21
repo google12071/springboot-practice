@@ -14,6 +14,7 @@ import java.time.Duration;
 
 /**
  * 监控拦截器(prometheus统计)
+ * @author lfq
  */
 @Slf4j
 public class MetricInterceptor extends HandlerInterceptorAdapter {
@@ -24,9 +25,9 @@ public class MetricInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 总计数 + 1
-        meterRegistry.counter("metric_req_total", Tags.of("url", request.getRequestURI(), "method", request.getMethod())).increment();
+        meterRegistry.counter("http_req_total", Tags.of("url", request.getRequestURI(), "method", request.getMethod())).increment();
         // 处理中计数 +1
-        meterRegistry.gauge("metric_process_req", Tags.of("url", request.getRequestURI(), "method", request.getMethod()), 1);
+        meterRegistry.gauge("http_process_req", Tags.of("url", request.getRequestURI(), "method", request.getMethod()), 1);
 
         Timer.Sample sample = Timer.start();
         threadLocal.set(sample);
@@ -38,8 +39,10 @@ public class MetricInterceptor extends HandlerInterceptorAdapter {
         try {
             super.postHandle(request, response, handler, modelAndView);
         } finally {
-            meterRegistry.gauge("metric_process_req", Tags.of("url", request.getRequestURI(), "method", request.getMethod()), -1);
-            Timer timer = Timer.builder("metric_req_histogram").minimumExpectedValue(Duration.ofMillis(1)).maximumExpectedValue(Duration.ofMinutes(3))
+            meterRegistry.gauge("http_process_req", Tags.of("url", request.getRequestURI(), "method", request.getMethod()), -1);
+
+            Timer timer = Timer.builder("http_process_req_histogram").minimumExpectedValue(Duration.ofMillis(1))
+                    .maximumExpectedValue(Duration.ofMinutes(3))
                     .sla(Duration.ofMillis(10), Duration.ofMillis(50), Duration.ofMillis(100), Duration.ofMillis(300), Duration.ofMillis(1000))
                     .tags(Tags.of("url", request.getRequestURI(), "method", request.getMethod(), "code", String.valueOf(response.getStatus())))
                     .register(meterRegistry);
