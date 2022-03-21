@@ -1,6 +1,7 @@
 package com.learn.springboot.practice.controller;
 
 import com.learn.springboot.practice.metric.PrometheusCustomMonitor;
+import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,29 @@ public class OrderController {
     public String gauge() {
         String metricName = "order_submit_gauge";
         Map<String, String> map = buildMap();
+        String[] tagArr = buildTagArr(map);
+        Gauge.builder(metricName, () -> buildValue(metricName, map, true)).tags(tagArr)
+                .description("订单提交").register(registry);
+        return "gauge";
+    }
+
+    @GetMapping("/summary")
+    public String summary() {
+        String metricName = "order_submit_summary";
+        Map<String, String> map = buildMap();
+        String[] tagArr = buildTagArr(map);
+        DistributionSummary summary = DistributionSummary.builder(metricName)
+                .description("订单提交summary")
+                .publishPercentiles(0.5).publishPercentileHistogram()
+                .sla((long) (10 * 0.3), (long) (10 * 0.6), (long) (10 * 0.9))
+                .minimumExpectedValue(1L)
+                .maximumExpectedValue(10L).tags(tagArr).
+                        register(registry);
+        summary.record(new Random().nextInt(10) + 1);
+        return "summary";
+    }
+
+    private String[] buildTagArr(Map<String, String> map) {
         List<String> tags = new ArrayList<>();
         map.forEach((tagName, tagValue) -> {
             tags.add(tagName);
@@ -47,9 +71,7 @@ public class OrderController {
         });
         String[] tagArr = new String[tags.size()];
         tags.toArray(tagArr);
-        Gauge.builder(metricName, () -> buildValue(metricName, map, true)).tags(tagArr)
-                .description("订单提交").register(registry);
-        return "gauge";
+        return tagArr;
     }
 
     private Map<String, String> buildMap() {
