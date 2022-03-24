@@ -174,6 +174,26 @@ public interface RedisManager {
     long getAndIncrement(String key, long invalidTime, TimeUnit timeUnit);
 
     /**
+     * -1后获取AtomicLong
+     *
+     * @param key         key
+     * @param invalidTime 过期时间
+     * @param timeUnit    过期时间单位
+     * @return 返回值
+     */
+    long decrementAndGet(String key, long invalidTime, TimeUnit timeUnit);
+
+    /**
+     * 获取AtomicLong并-1
+     *
+     * @param key         key
+     * @param invalidTime 过期时间
+     * @param timeUnit    过期时间单位
+     * @return 返回值
+     */
+    long getAndDecrement(String key, long invalidTime, TimeUnit timeUnit);
+
+    /**
      * +1后获取AtomicLong
      *
      * @param key         key

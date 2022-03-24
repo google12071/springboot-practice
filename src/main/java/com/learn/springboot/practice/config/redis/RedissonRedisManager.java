@@ -341,6 +341,40 @@ public class RedissonRedisManager implements RedisManager {
     }
 
     @Override
+    public long decrementAndGet(String key, long invalidTime, TimeUnit timeUnit) {
+        String redisKey = wrapPrefix(key);
+        try {
+            if (!redissonClient.getAtomicLong(redisKey).isExists()) {
+                long value = redissonClient.getAtomicLong(redisKey).decrementAndGet();
+                redissonClient.getAtomicLong(redisKey).expire(invalidTime, timeUnit);
+                return value;
+            } else {
+                return redissonClient.getAtomicLong(redisKey).decrementAndGet();
+            }
+        } catch (Exception e) {
+            log.error("REDIS_ERROR_DECREMENT_AND_GET_ATOMIC_LONG," + redisKey, e);
+            throw new RedisException("REDIS_ERROR_INCREMENT_AND_GET_ATOMIC_LONG");
+        }
+    }
+
+    @Override
+    public long getAndDecrement(String key, long invalidTime, TimeUnit timeUnit) {
+        String redisKey = wrapPrefix(key);
+        try {
+            if (!redissonClient.getAtomicLong(redisKey).isExists()) {
+                long value = redissonClient.getAtomicLong(redisKey).getAndDecrement();
+                redissonClient.getAtomicLong(redisKey).expire(invalidTime, timeUnit);
+                return value;
+            } else {
+                return redissonClient.getAtomicLong(redisKey).getAndDecrement();
+            }
+        } catch (Exception e) {
+            log.error("REDIS_ERROR_GET_AND_DECREMENT_ATOMIC_LONG," + redisKey, e);
+            throw new RedisException("REDIS_ERROR_INCREMENT_AND_GET_ATOMIC_LONG");
+        }
+    }
+
+    @Override
     public long getAtomicLong(String key) {
         String redisKey = wrapPrefix(key);
         try {
