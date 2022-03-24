@@ -1,6 +1,7 @@
 package com.learn.springboot.practice.redis;
 
 import com.learn.springboot.practice.SpringBootPracticeApplication;
+import com.learn.springboot.practice.config.redis.RedisManager;
 import com.learn.springboot.practice.model.User;
 import com.learn.springboot.practice.service.CompositeService;
 import com.learn.springboot.practice.service.UserCacheService;
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName RedisTest
@@ -40,6 +42,9 @@ public class RedisTest {
 
     @Resource(name = "genericJackson2Template")
     private RedisTemplate<String, Object> genericJackson2Template;
+
+    @Autowired
+    private RedisManager redisManager;
 
     @Test
     public void opsRedis() {
@@ -91,5 +96,12 @@ public class RedisTest {
     public void getUserFromMultiCache(){
         User user = cacheService.getUserFromMultiCache(1L);
         log.info("user:{}", user);
+    }
+
+    @Test
+    public void redissionOps(){
+        String key="redission.test";
+        long value = redisManager.incrementAndGet(key, 10, TimeUnit.MINUTES);
+        System.out.println(value);
     }
 }
