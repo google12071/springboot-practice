@@ -21,7 +21,7 @@ public class ChainClient {
     }
 
     /**
-     * 遍历看是否
+     * 遍历看是否存在满足条件的处理器
      *
      * @param request
      * @return
