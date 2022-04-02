@@ -1,4 +1,4 @@
-package com.learn.springboot.practice.dp;
+package com.learn.springboot.practice.dp.adapter;
 
 public class ChinaPowerAdapter implements DC5Adapter{
     public static final int voltage = 220;

@@ -1,4 +1,4 @@
-package com.learn.springboot.practice.dp;
+package com.learn.springboot.practice.dp.adapter;
 
 public interface DC5Adapter {
     boolean support(AC ac);

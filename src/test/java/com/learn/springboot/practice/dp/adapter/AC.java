@@ -1,4 +1,4 @@
-package com.learn.springboot.practice.dp;
+package com.learn.springboot.practice.dp.adapter;
 
 /**
  * 输出电压
