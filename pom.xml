@@ -191,6 +191,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>io.github.mweirauch</groupId>
+			<artifactId>micrometer-jvm-extras</artifactId>
+			<version>0.2.2</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>com.taobao.arthas</groupId>
 			<artifactId>arthas-spring-boot-starter</artifactId>
 			<version>3.5.5</version>
