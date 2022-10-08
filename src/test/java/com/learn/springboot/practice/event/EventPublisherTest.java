@@ -21,4 +21,12 @@ public class EventPublisherTest extends BaseTest {
         user.setAge(18);
         userService.register(user);
     }
+
+    @Test
+    public void userLogin() {
+        User user = new User();
+        user.setName("test");
+        user.setAge(18);
+        userService.login(user);
+    }
 }

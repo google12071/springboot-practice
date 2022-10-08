@@ -14,6 +14,11 @@ public class EmailService implements ApplicationListener<UserRegisterEvent> {
 
     @Override
     public void onApplicationEvent(UserRegisterEvent event) {
-        log.info("sendEmail:event:{}", event.getSource());
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            log.error("UserRegisterEvent error", e);
+        }
+        log.info("sendEmail:event:{},ThreadName:{}", event.getSource(), Thread.currentThread().getName());
     }
 }
